@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+
+button {
+  background: none;
+  border: none;
+}
+.main-container {
+  max-width: 375px;
+  height: 100vh;
+  background-color: #e5e5e5;
+  font-family: "Roboto", sans-serif;
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px 0px #0000000d;
+  position: fixed;
+  padding: 0px 16px;
+  top: 0;
+  left: 0;
+}
+
+.header-content ion-icon {
+  font-size: 30px;
+}
+.main-content {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.main-container .message {
+  margin-bottom: 4px;
+  padding: 9px;
+  min-height: 40px;
+  background-color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+.message > span {
+  line-height: 15px;
+}
+.message .message-time{
+    color: #aaa;
+}
+.message .user-name{
+    font-weight: 700;
+}
+.footer-content {
+  display: flex;
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px 0px #0000000d;
+  position: fixed;
+  padding: 0px 16px;
+  bottom: 0;
+}
+.footer-content form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-content form input {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+}
+.footer-content form input:focus {
+  outline: 0;
+}
+.footer-content form input::placeholder {
+  color: #000;
+  font-style: italic;
+}
+.footer-content ion-icon {
+  font-size: 25px;
+}
