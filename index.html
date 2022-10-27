@@ -17,50 +17,60 @@
     <div class="main-container">
       <header class="header-content">
         <img src="./src/images/logo 1.svg" alt="" />
-        <button class="btn-active-users" id="btnActiveUsers">
-          <ion-icon name="people"></ion-icon>
-        </button>
+        <ion-icon id="btnActiveUsers" name="people"></ion-icon>
       </header>
       <main class="main-content">
+        <p class="message status-message">
+          <span>
+            <span class="message-time" id="messageTime">(09:21:45) </span
+            ><span class="user-name" id="userName">João</span
+            ><span class="userMessage" id="userMessage"> entra na sala...</span>
+          </span>
+        </p>
         <p class="message">
           <span>
-          <span class="message-time" id="messageTime">(09:21:45) </span
-          ><span class="user-name" id="userName">João</span
-          ><span class="userMessage" id="userMessage"> entra na sala...</span>
-        </span>
+            <span class="message-time" id="messageTime">(09:21:45) </span
+            ><span class="user-name" id="userName">João</span>
+            <span>para</span>
+            <span class="user-name" id="userRecipient">Todos</span
+            ><span class="userMessage" id="userMessage">: Bom dia</span></span
+          >
         </p>
-        <p class="message"><span>
-          <span class="message-time" id="messageTime">(09:21:45) </span
-          ><span class="user-name" id="userName">João</span>
-          <span>para</span>
-          <span class="user-name" id="userRecipient">Todos</span
-          ><span class="userMessage" id="userMessage">: Bom dia</span></span>
+        <p class="message">
+          <span>
+            <span class="message-time" id="messageTime">(09:21:45) </span
+            ><span class="user-name" id="userName">Maria</span>
+            <span>para</span>
+            <span class="user-name" id="userRecipient">João</span
+            ><span class="userMessage" id="userMessage"
+              >: Oi João :)</span
+            ></span
+          >
         </p>
-        <p class="message"><span>
-          <span class="message-time" id="messageTime">(09:21:45) </span
-          ><span class="user-name" id="userName">Maria</span>
-          <span>para</span>
-          <span class="user-name" id="userRecipient">João</span
-          ><span class="userMessage" id="userMessage">: Oi João :)</span></span>
+        <p class="message private-message">
+          <span>
+            <span class="message-time" id="messageTime">(09:21:45) </span
+            ><span class="user-name" id="userName">João</span>
+            <span>reservadamente para</span>
+            <span class="user-name" id="userRecipient">Maria</span
+            ><span class="userMessage" id="userMessage"
+              >: Oi gatinha quer tc?</span
+            ></span
+          >
         </p>
-        <p class="message"><span>
-          <span class="message-time" id="messageTime">(09:21:45) </span
-          ><span class="user-name" id="userName">João</span>
-          <span>reservadamente para</span>
-          <span class="user-name" id="userRecipient">Maria</span
-          ><span class="userMessage" id="userMessage"
-            >: Oi gatinha quer tc?</span
-          ></span>
-        </p>
-        <p class="message"><span>
-          <span class="message-time" id="messageTime">(09:21:45) </span
-          ><span class="user-name" id="userName">Maria</span
-          ><span class="userMessage" id="userMessage"> sai da sala...</span></span>
+        <p class="message status-message">
+          <span>
+            <span class="message-time" id="messageTime">(09:21:45) </span
+            ><span class="user-name" id="userName">Maria</span
+            ><span class="userMessage" id="userMessage">
+              sai da sala...</span
+            ></span
+          >
         </p>
       </main>
       <footer class="footer-content">
         <form
-          action="https://mock-api.driven.com.br/api/v6/uol/messages"
+          action=""
           method="post"
         >
           <input
@@ -69,9 +79,8 @@
             placeholder="Escreva aqui..."
             id="userMessage"
           />
-          <button id="btnSendMessage">
-            <ion-icon name="paper-plane-outline"></ion-icon>
-          </button>
+
+          <ion-icon id="btnSendMessage" name="paper-plane-outline"></ion-icon>
         </form>
       </footer>
     </div>
@@ -83,6 +92,7 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/js/script.js"></script>
   </body>
 </html>

@@ -5,7 +5,6 @@ button {
   border: none;
 }
 .main-container {
-  max-width: 375px;
   height: 100vh;
   background-color: #e5e5e5;
   font-family: "Roboto", sans-serif;
@@ -31,7 +30,7 @@ button {
   padding-top: 100px;
   padding-bottom: 100px;
 }
-.main-container .message {
+.message {
   margin-bottom: 4px;
   padding: 9px;
   min-height: 40px;
@@ -48,6 +47,12 @@ button {
 }
 .message .user-name{
     font-weight: 700;
+}
+.status-message{
+    background-color: #DCDCDC;
+}
+.private-message{
+    background-color: #FFDEDE;
 }
 .footer-content {
   display: flex;
