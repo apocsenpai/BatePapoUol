@@ -2,6 +2,8 @@ let name;
 let totalMessages = [];
 let compareMessages = [];
 const chat = document.querySelector(".main-content");
+const btnSendMessage = document.getElementById("btnSendMessage");
+const userMessage = document.getElementById('messageToSend');
 
 loginOnChat();
 
@@ -48,7 +50,6 @@ function loadMessages() {
 
 function showMessages(messagesResponse) {
   totalMessages = messagesResponse.data;
-  console.log("entrou na função");
   chat.innerHTML = "";
   for (let i = 0; i < totalMessages.length; i++) {
     let singleMessage = totalMessages[i];
@@ -105,14 +106,50 @@ function showMessages(messagesResponse) {
       lastMessage.text !== penultMessage.text ||
       lastMessage.from !== penultMessage.from
     ) {
-      scrollToLastMessage(chat);
+      scrollToLastMessage();
     }
   } else {
-    scrollToLastMessage(chat);
+    scrollToLastMessage();
   }
 }
 
-function scrollToLastMessage(chat) {
+btnSendMessage.addEventListener('click', sendMessages);
+
+function sendMessages(){
+  
+  const message = {
+    from: name,
+    to: 'Todos',
+    text: userMessage.value,
+    type: "message"
+  }
+
+  const sendMessageResponse = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', message);
+  sendMessageResponse.then(loadMessages);
+  sendMessageResponse.catch(sendMessageError);
+  
+  userMessage.value = "";
+}
+
+function sendMessageError(sendMessageError){
+  const statusCode = sendMessageError.response.status;
+
+  console.log(statusCode)
+
+  if(statusCode === 400){
+    userMessage.classList.add('message-error');
+    userMessage.placeholder = 'Por favor, digite alguma mensagem!';
+    setTimeout(() => {
+      userMessage.classList.remove('message-error');
+      userMessage.placeholder = 'Escreva aqui...';
+    }, 2000);
+  }else{
+    window.location.reload();
+  }
+  
+}
+
+function scrollToLastMessage() {
   const lastMessage = chat.lastElementChild;
   lastMessage.scrollIntoView({ behavior: "smooth" });
 }
