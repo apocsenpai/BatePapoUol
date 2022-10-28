@@ -24,7 +24,11 @@ btnCloseSidebar.addEventListener("click", closeSideBar);
 
 blackScreen.addEventListener("click", closeSideBar);
 
-document.addEventListener("keydown",pressEnter(this));
+document.addEventListener("keypress", function(keyPressed){
+  if (keyPressed.key === 'Enter'){
+    btnSendMessage.click();
+  }
+});
 
 typeMessage.forEach(selectOption);
 
@@ -270,6 +274,4 @@ function optionTreatment(option) {
   }
 }
 
-// function pressEnter(keyPressed){
-//   if(keyPressed.keyCode =)
-// }
+
