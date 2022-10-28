@@ -1,11 +1,32 @@
 let name;
 let totalMessages = [];
 let compareMessages = [];
+let destinatary = "Todos";
+let typeMessageChoose = "message";
+
 const chat = document.querySelector(".main-content");
 const btnSendMessage = document.getElementById("btnSendMessage");
-const userMessage = document.getElementById('messageToSend');
+const userMessage = document.getElementById("messageToSend");
+const btnActiveUsers = document.getElementById("btnActiveUsers");
+const sidebar = document.querySelector(".activeUsers-display");
+const btnCloseSidebar = document.querySelector(".btn-close-sidebar");
+const activeUsers = document.querySelector(".active-users");
+const typeMessage = document.querySelectorAll(".type-message");
+const blackScreen = document.querySelector(".black-screen");
 
 loginOnChat();
+
+btnSendMessage.addEventListener("click", sendMessages);
+
+btnActiveUsers.addEventListener("click", showSidebar);
+
+btnCloseSidebar.addEventListener("click", closeSideBar);
+
+blackScreen.addEventListener("click", closeSideBar);
+
+document.addEventListener("keydown",pressEnter(this));
+
+typeMessage.forEach(selectOption);
 
 function loginOnChat() {
   name = prompt("Digite seu nickname: ");
@@ -22,6 +43,8 @@ function loginSuccess(loginResponse) {
   setInterval(keepUserOnline, 5000);
   loadMessages();
   setInterval(loadMessages, 3000);
+  findParticipants();
+  setInterval(findParticipants, 10000);
 }
 
 function loginError(loginResponse) {
@@ -113,43 +136,140 @@ function showMessages(messagesResponse) {
   }
 }
 
-btnSendMessage.addEventListener('click', sendMessages);
-
-function sendMessages(){
-  
+function sendMessages() {
   const message = {
     from: name,
-    to: 'Todos',
+    to: destinatary,
     text: userMessage.value,
-    type: "message"
-  }
+    type: typeMessageChoose,
+  };
 
-  const sendMessageResponse = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', message);
+  const sendMessageResponse = axios.post(
+    "https://mock-api.driven.com.br/api/v6/uol/messages",
+    message
+  );
   sendMessageResponse.then(loadMessages);
   sendMessageResponse.catch(sendMessageError);
-  
+
   userMessage.value = "";
 }
 
-function sendMessageError(sendMessageError){
+function sendMessageError(sendMessageError) {
   const statusCode = sendMessageError.response.status;
 
-  console.log(statusCode)
-
-  if(statusCode === 400){
-    userMessage.classList.add('message-error');
-    userMessage.placeholder = 'Por favor, digite alguma mensagem!';
+  if (statusCode === 400) {
+    userMessage.classList.add("message-error");
+    userMessage.placeholder = "Por favor, digite alguma mensagem!";
     setTimeout(() => {
-      userMessage.classList.remove('message-error');
-      userMessage.placeholder = 'Escreva aqui...';
-    }, 2000);
-  }else{
+      userMessage.classList.remove("message-error");
+      userMessage.placeholder = "Escreva aqui...";
+    }, 1500);
+  } else {
     window.location.reload();
   }
-  
 }
 
 function scrollToLastMessage() {
   const lastMessage = chat.lastElementChild;
   lastMessage.scrollIntoView({ behavior: "smooth" });
 }
+
+function showSidebar() {
+  sidebar.classList.remove("hidden-class");
+}
+
+function closeSideBar() {
+  sidebar.classList.add("hidden-class");
+}
+
+function selectOption(option) {
+  option.addEventListener("click", () => {
+    chooseType(option);
+    optionTreatment(option);
+  });
+}
+
+function chooseType(option) {
+  if (option.classList.contains("selected") === true) {
+    return;
+  } else {
+    removeSelect(option);
+    option.classList.add("selected");
+  }
+}
+
+function removeSelect(option) {
+  option.parentNode.querySelectorAll(".selected").forEach((element) => {
+    element.classList.remove("selected");
+  });
+}
+
+function findParticipants() {
+  const participantsResponse = axios.get(
+    "https://mock-api.driven.com.br/api/v6/uol/participants"
+  );
+  participantsResponse.then(participantsActive);
+  participantsResponse.catch(participantsError);
+}
+
+function participantsActive(participants) {
+  const participantsList = participants.data;
+  activeUsers.innerHTML = `
+    <div class="activeUser otherUser">
+        <div>
+          <ion-icon id="btnActiveUsers" name="people"></ion-icon>
+          <span class="destinatary">Todos</span>
+        </div>
+        <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+    </div>
+  `;
+  for (let i = 0; i < participantsList.length; i++) {
+    let participant = participantsList[i];
+    showParticipants(participant.name);
+  }
+  const activeUser = document.querySelectorAll(".otherUser");
+  activeUser.forEach(selectOption);
+}
+
+function participantsError() {
+  activeUsers.innerHTML = `<p>Não há participantes online</p>`;
+}
+
+function showParticipants(participant) {
+  if (name === participant) {
+    activeUsers.innerHTML += `
+    <div class="activeUser">
+      <div>
+        <ion-icon name="person-circle"></ion-icon> <span >${participant}</span>
+      </div>
+      <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+    </div>
+  `;
+  } else {
+    activeUsers.innerHTML += `
+    <div class="activeUser otherUser">
+      <div>
+        <ion-icon name="person-circle"></ion-icon> <span class="destinatary">${participant}</span>
+      </div>
+      <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+    </div>
+  `;
+  }
+}
+
+function optionTreatment(option) {
+  if (option.classList.contains("otherUser")) {
+    destinatary = option.querySelector(".destinatary").innerHTML;
+  } else if (option.classList.contains("type-message")) {
+    const type = option.querySelector(".type-message-option").innerHTML;
+    if (type === "Reservadamente") {
+      typeMessageChoose = "private_message";
+    } else {
+      typeMessageChoose = "message";
+    }
+  }
+}
+
+// function pressEnter(keyPressed){
+//   if(keyPressed.keyCode =)
+// }

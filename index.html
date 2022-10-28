@@ -19,60 +19,9 @@
         <img src="./src/images/logo 1.svg" alt="" />
         <ion-icon id="btnActiveUsers" name="people"></ion-icon>
       </header>
-      <main class="main-content">
-        <p class="message status-message">
-          <span>
-            <span class="message-time" id="messageTime">(09:21:45) </span
-            ><span class="user-name" id="userName">João</span
-            ><span class="userMessage" id="userMessage"> entra na sala...</span>
-          </span>
-        </p>
-        <p class="message">
-          <span>
-            <span class="message-time" id="messageTime">(09:21:45) </span
-            ><span class="user-name" id="userName">João</span>
-            <span>para</span>
-            <span class="user-name" id="userRecipient">Todos</span
-            ><span class="userMessage" id="userMessage">: Bom dia</span></span
-          >
-        </p>
-        <p class="message">
-          <span>
-            <span class="message-time" id="messageTime">(09:21:45) </span
-            ><span class="user-name" id="userName">Maria</span>
-            <span>para</span>
-            <span class="user-name" id="userRecipient">João</span
-            ><span class="userMessage" id="userMessage"
-              >: Oi João :)</span
-            ></span
-          >
-        </p>
-        <p class="message private-message">
-          <span>
-            <span class="message-time" id="messageTime">(09:21:45) </span
-            ><span class="user-name" id="userName">João</span>
-            <span>reservadamente para</span>
-            <span class="user-name" id="userRecipient">Maria</span
-            ><span class="userMessage" id="userMessage"
-              >: Oi gatinha quer tc?</span
-            ></span
-          >
-        </p>
-        <p class="message status-message">
-          <span>
-            <span class="message-time" id="messageTime">(09:21:45) </span
-            ><span class="user-name" id="userName">Maria</span
-            ><span class="userMessage" id="userMessage">
-              sai da sala...</span
-            ></span
-          >
-        </p>
-      </main>
+      <main class="main-content"></main>
       <footer class="footer-content">
-        <form
-          action=""
-          method="post"
-        >
+        <form action="" method="post">
           <input
             type="text"
             name="message"
@@ -83,6 +32,36 @@
           <ion-icon id="btnSendMessage" name="paper-plane-outline"></ion-icon>
         </form>
       </footer>
+      <div class="activeUsers-display hidden-class">
+        <div class="black-screen">
+          
+        </div>
+        <aside class="sidebar">
+          <p>
+            <ion-icon name="close-outline" class="btn-close-sidebar"></ion-icon>
+            Escolha um contato para enviar mensagem:
+          </p>
+          <section class="sidebarOption active-users">
+            
+          </section>
+          <p>Escolha a visibilidade:</p>
+          <section class="sidebarOption">
+            <div class="activeUser type-message">
+              <div>
+                <ion-icon name="lock-open"></ion-icon> <span class="type-message-option">Público</span>
+              </div>
+              <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+            </div>
+            <div class="activeUser type-message">
+              <div>
+                <ion-icon name="lock-closed"></ion-icon>
+                <span class="type-message-option">Reservadamente</span>
+              </div>
+              <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+            </div>
+          </section>
+        </aside>
+      </div>
     </div>
     <script
       type="module"
