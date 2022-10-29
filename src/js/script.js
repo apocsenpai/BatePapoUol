@@ -13,8 +13,11 @@ const btnCloseSidebar = document.querySelector(".btn-close-sidebar");
 const activeUsers = document.querySelector(".active-users");
 const typeMessage = document.querySelectorAll(".type-message");
 const blackScreen = document.querySelector(".black-screen");
+const btnLogin = document.getElementById("btnLogin");
+const userLogin = document.getElementById("userLogin");
+const displayLogin = document.querySelector(".login-display");
 
-loginOnChat();
+btnLogin.addEventListener("click", loginOnChat);
 
 btnSendMessage.addEventListener("click", sendMessages);
 
@@ -24,16 +27,20 @@ btnCloseSidebar.addEventListener("click", closeSideBar);
 
 blackScreen.addEventListener("click", closeSideBar);
 
-document.addEventListener("keypress", function(keyPressed){
-  if (keyPressed.key === 'Enter'){
+document.addEventListener("keypress", (keyPressed) => {
+  if (keyPressed.key === "Enter") {
+    if(displayLogin.classList.contains('hidden-class')!==true){
+       btnLogin.click();
+    }else{
     btnSendMessage.click();
+    }
   }
 });
 
 typeMessage.forEach(selectOption);
 
 function loginOnChat() {
-  name = prompt("Digite seu nickname: ");
+  name = userLogin.value;
   const userName = { name: name };
   const loginResponse = axios.post(
     "https://mock-api.driven.com.br/api/v6/uol/participants",
@@ -44,6 +51,8 @@ function loginOnChat() {
 }
 
 function loginSuccess(loginResponse) {
+  
+  displayLogin.classList.add("hidden-class");
   setInterval(keepUserOnline, 5000);
   loadMessages();
   setInterval(loadMessages, 3000);
@@ -54,7 +63,12 @@ function loginSuccess(loginResponse) {
 function loginError(loginResponse) {
   const statusCode = loginResponse.response.status;
   if (statusCode === 400) {
-    loginOnChat();
+    userLogin.classList.add("message-error");
+    userLogin.placeholder = "Login inválido";
+    setTimeout(() => {
+      userLogin.classList.remove("message-error");
+      userLogin.placeholder = "Digite seu nome";
+    }, 1500);
   }
 }
 
@@ -160,7 +174,6 @@ function sendMessages() {
 
 function sendMessageError(sendMessageError) {
   const statusCode = sendMessageError.response.status;
-
   if (statusCode === 400) {
     userMessage.classList.add("message-error");
     userMessage.placeholder = "Por favor, digite alguma mensagem!";
@@ -273,5 +286,3 @@ function optionTreatment(option) {
     }
   }
 }
-
-
