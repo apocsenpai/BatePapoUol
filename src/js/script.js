@@ -2,6 +2,7 @@ let name;
 let totalMessages = [];
 let compareMessages = [];
 let destinatary = "Todos";
+let type = "Público";
 let typeMessageChoose = "message";
 
 const chat = document.querySelector(".main-content");
@@ -58,18 +59,12 @@ function loginSuccess(loginResponse) {
   setInterval(loadMessages, 3000);
   findParticipants();
   setInterval(findParticipants, 10000);
+  messageInformation();
 }
 
 function loginError(loginResponse) {
   const statusCode = loginResponse.response.status;
-  if (statusCode === 400) {
-    userLogin.classList.add("message-error");
-    userLogin.placeholder = "Login inválido";
-    setTimeout(() => {
-      userLogin.classList.remove("message-error");
-      userLogin.placeholder = "Digite seu nome";
-    }, 1500);
-  }
+  showMessageError(statusCode, userLogin);
 }
 
 function keepUserOnline() {
@@ -135,7 +130,7 @@ function showMessages(messagesResponse) {
                 </p>
             `;
     }
-    if (i === 99) {
+    if (i === totalMessages.length-1) {
       compareMessages.push(totalMessages[i]);
     }
   }
@@ -174,16 +169,7 @@ function sendMessages() {
 
 function sendMessageError(sendMessageError) {
   const statusCode = sendMessageError.response.status;
-  if (statusCode === 400) {
-    userMessage.classList.add("message-error");
-    userMessage.placeholder = "Por favor, digite alguma mensagem!";
-    setTimeout(() => {
-      userMessage.classList.remove("message-error");
-      userMessage.placeholder = "Escreva aqui...";
-    }, 1500);
-  } else {
-    window.location.reload();
-  }
+  showMessageError(statusCode, userMessage);
 }
 
 function scrollToLastMessage() {
@@ -203,6 +189,7 @@ function selectOption(option) {
   option.addEventListener("click", () => {
     chooseType(option);
     optionTreatment(option);
+    messageInformation();
   });
 }
 
@@ -212,6 +199,7 @@ function chooseType(option) {
   } else {
     removeSelect(option);
     option.classList.add("selected");
+    
   }
 }
 
@@ -257,7 +245,7 @@ function showParticipants(participant) {
     activeUsers.innerHTML += `
     <div class="activeUser">
       <div>
-        <ion-icon name="person-circle"></ion-icon> <span >${participant}</span>
+        <ion-icon name="person-circle"></ion-icon> <span>${participant}</span>
       </div>
       <ion-icon name="checkmark-sharp" class="check"></ion-icon>
     </div>
@@ -278,11 +266,31 @@ function optionTreatment(option) {
   if (option.classList.contains("otherUser")) {
     destinatary = option.querySelector(".destinatary").innerHTML;
   } else if (option.classList.contains("type-message")) {
-    const type = option.querySelector(".type-message-option").innerHTML;
+    type = option.querySelector(".type-message-option").innerHTML;
     if (type === "Reservadamente") {
       typeMessageChoose = "private_message";
     } else {
       typeMessageChoose = "message";
     }
   }
+}
+
+function showMessageError(statusCode, element){
+  if (statusCode === 400) {
+    element.classList.add("message-error");
+    element.placeholder = "Login inválido";
+    setTimeout(() => {
+      element.classList.remove("message-error");
+      element.placeholder = "Digite seu nome";
+    }, 1500);
+  }else{
+    window.location.reload();
+  }
+}
+
+function messageInformation(){  
+  const information = userMessage.parentNode.querySelector('span');
+  information.innerHTML = `
+  Enviando para ${destinatary} (${type})
+  `;
 }
