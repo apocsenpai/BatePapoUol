@@ -250,7 +250,16 @@ function showParticipants(participant) {
       <ion-icon name="checkmark-sharp" class="check"></ion-icon>
     </div>
   `;
-  } else {
+  } else if(destinatary === participant){
+    activeUsers.innerHTML += `
+    <div class="activeUser otherUser selected">
+      <div>
+        <ion-icon name="person-circle"></ion-icon> <span class="destinatary">${participant}</span>
+      </div>
+      <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+    </div>
+  `;
+  }else {
     activeUsers.innerHTML += `
     <div class="activeUser otherUser">
       <div>
