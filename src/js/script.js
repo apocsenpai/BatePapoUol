@@ -89,11 +89,12 @@ function showMessages(messagesResponse) {
   chat.innerHTML = "";
   for (let i = 0; i < totalMessages.length; i++) {
     let singleMessage = totalMessages[i];
+    let timeAgo = convertTime(singleMessage.time);
     if (singleMessage.type === "status") {
       chat.innerHTML += `
                 <p class="message status-message">
                     <span>
-                        <span class="message-time">(${singleMessage.time}) </span
+                        <span class="message-time">(${timeAgo}) </span
                         ><span class="user-name">${singleMessage.from}</span
                         ><span class="userMessage"> ${singleMessage.text}</span>
                     </span>
@@ -106,7 +107,7 @@ function showMessages(messagesResponse) {
       chat.innerHTML += `
                 <p class="message private-message">
                     <span>
-                        <span class="message-time" id="messageTime">(${singleMessage.time}) </span
+                        <span class="message-time" id="messageTime">(${timeAgo}) </span
                         ><span class="user-name" id="userName">${singleMessage.from}</span>
                         <span>reservadamente para</span>
                         <span class="user-name" id="userRecipient">${singleMessage.to}</span
@@ -119,7 +120,7 @@ function showMessages(messagesResponse) {
       chat.innerHTML += `
                 <p class="message">
                 <span>
-                    <span class="message-time" id="messageTime">(${singleMessage.time}) </span
+                    <span class="message-time" id="messageTime">(${timeAgo}) </span
                     ><span class="user-name" id="userName">${singleMessage.from}</span>
                     <span>para</span>
                     <span class="user-name" id="userRecipient">${singleMessage.to}</span
@@ -302,4 +303,16 @@ function messageInformation(){
   information.innerHTML = `
   Enviando para ${destinatary} (${type})
   `;
+}
+
+function convertTime(time){
+  let hour = (Number(time[0]+time[1])-3);
+  if(hour<=0){
+    hour = (hour+12).toLocaleString('pt-BR',{minimumIntegerDigits:2});
+  }
+  console.log(hour)
+  const minute = Number(time[3]+time[4]).toLocaleString('pt-BR',{minimumIntegerDigits:2});
+  const seconds = Number(time[6]+time[7]).toLocaleString('pt-BR',{minimumIntegerDigits:2});
+  
+  return `${hour}:${minute}:${seconds}`;
 }
