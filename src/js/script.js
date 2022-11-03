@@ -92,7 +92,7 @@ function showMessages(messagesResponse) {
     let timeAgo = convertTime(singleMessage.time);
     if (singleMessage.type === "status") {
       chat.innerHTML += `
-                <p class="message status-message">
+                <p data-test="message" class="message status-message">
                     <span>
                         <span class="message-time">(${timeAgo}) </span
                         ><span class="user-name">${singleMessage.from}</span
@@ -105,7 +105,7 @@ function showMessages(messagesResponse) {
       (singleMessage.to === name || singleMessage.from === name)
     ) {
       chat.innerHTML += `
-                <p class="message private-message">
+                <p data-test="message" class="message private-message">
                     <span>
                         <span class="message-time" id="messageTime">(${timeAgo}) </span
                         ><span class="user-name" id="userName">${singleMessage.from}</span>
@@ -118,7 +118,7 @@ function showMessages(messagesResponse) {
             `;
     } else {
       chat.innerHTML += `
-                <p class="message">
+                <p data-test="message" class="message">
                 <span>
                     <span class="message-time" id="messageTime">(${timeAgo}) </span
                     ><span class="user-name" id="userName">${singleMessage.from}</span>
@@ -221,12 +221,12 @@ function findParticipants() {
 function participantsActive(participants) {
   const participantsList = participants.data;
   activeUsers.innerHTML = `
-    <div class="activeUser otherUser">
+    <div data-test="all" class="activeUser otherUser">
         <div>
           <ion-icon id="btnActiveUsers" name="people"></ion-icon>
           <span class="destinatary">Todos</span>
         </div>
-        <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+        <ion-icon name="checkmark-sharp" data-test="check" class="check"></ion-icon>
     </div>
   `;
   for (let i = 0; i < participantsList.length; i++) {
@@ -244,29 +244,29 @@ function participantsError() {
 function showParticipants(participant) {
   if (name === participant) {
     activeUsers.innerHTML += `
-    <div class="activeUser">
+    <div data-test="participant" class="activeUser">
       <div>
         <ion-icon name="person-circle"></ion-icon> <span>${participant}</span>
       </div>
-      <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+      <ion-icon name="checkmark-sharp" data-test="check" class="check"></ion-icon>
     </div>
   `;
   } else if(destinatary === participant){
     activeUsers.innerHTML += `
-    <div class="activeUser otherUser selected">
+    <div data-test="participant" class="activeUser otherUser selected">
       <div>
         <ion-icon name="person-circle"></ion-icon> <span class="destinatary">${participant}</span>
       </div>
-      <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+      <ion-icon name="checkmark-sharp" data-test="check" class="check"></ion-icon>
     </div>
   `;
   }else {
     activeUsers.innerHTML += `
-    <div class="activeUser otherUser">
+    <div data-test="participant" class="activeUser otherUser">
       <div>
         <ion-icon name="person-circle"></ion-icon> <span class="destinatary">${participant}</span>
       </div>
-      <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+      <ion-icon name="checkmark-sharp" data-test="check" class="check"></ion-icon>
     </div>
   `;
   }

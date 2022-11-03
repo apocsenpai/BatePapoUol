@@ -17,21 +17,22 @@
     <div class="main-container">
       <header class="header-content">
         <img src="./src/images/logo 1.svg" alt="" />
-        <ion-icon id="btnActiveUsers" name="people"></ion-icon>
+        <ion-icon id="btnActiveUsers" data-test="open-participants" name="people"></ion-icon>
       </header>
       <main class="main-content"></main>
       <footer class="footer-content">
         
           <div class="message-content">
             <input autocomplete="off"
+            data-test="input-message"
             type="text"
             name="message"
             placeholder="Escreva aqui..."
             id="messageToSend"
           />
-         <span></span>
+         <span data-test="recipient"></span>
           </div>
-          <ion-icon id="btnSendMessage" name="paper-plane-outline"></ion-icon>
+          <ion-icon id="btnSendMessage" data-test="send-message" name="paper-plane-outline"></ion-icon>
       </footer>
       <div class="activeUsers-display hidden-class">
         <div class="black-screen">
@@ -47,18 +48,18 @@
           </section>
           <p>Escolha a visibilidade:</p>
           <section class="sidebarOption">
-            <div class="activeUser type-message">
+            <div class="activeUser type-message" data-test="public">
               <div>
                 <ion-icon name="lock-open"></ion-icon> <span class="type-message-option">Público</span>
               </div>
-              <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+              <ion-icon name="checkmark-sharp" data-test="check" class="check"></ion-icon>
             </div>
-            <div class="activeUser type-message">
+            <div class="activeUser type-message" data-test="private">
               <div>
                 <ion-icon name="lock-closed"></ion-icon>
                 <span class="type-message-option">Reservadamente</span>
               </div>
-              <ion-icon name="checkmark-sharp" class="check"></ion-icon>
+              <ion-icon name="checkmark-sharp" data-test="check" class="check"></ion-icon>
             </div>
           </section>
         </aside>
@@ -66,8 +67,8 @@
       <div class="login-display">
         <img src="./src/images/logo 1.svg" alt="">
         <div class="user-data">
-          <input type="text" name="login" id="userLogin" autocomplete="off" placeholder="Digite seu nome">
-          <button class="btn-login" id="btnLogin">Entrar</button>
+          <input type="text" data-test="input-name" name="login" id="userLogin" autocomplete="off" placeholder="Digite seu nome">
+          <button class="btn-login" data-test="send-name" id="btnLogin">Entrar</button>
         </div>
       </div>
     </div>
